@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace MonoGame_4_Time_Sound
 {
@@ -15,9 +16,11 @@ namespace MonoGame_4_Time_Sound
         SpriteFont timeFont;
         MouseState mouseState;
         SoundEffect explosionEffect;
+        SoundEffectInstance explodeInstance;
         Rectangle redButton;
         Texture2D button;
         float seconds;
+        bool exploded = false;
 
         public Game1()
         {
@@ -34,7 +37,7 @@ namespace MonoGame_4_Time_Sound
             _graphics.ApplyChanges();
 
             bombSize = new Rectangle(50, 50, 700, 400);
-            redButton = new Rectangle(258, 132, 50, 50);
+            redButton = new Rectangle(258, 133, 50, 50);
             seconds = 0;
             button = new Texture2D(GraphicsDevice, 50, 50);
             base.Initialize();
@@ -46,6 +49,7 @@ namespace MonoGame_4_Time_Sound
             bombTexture = Content.Load<Texture2D>("bomb");
             timeFont = Content.Load<SpriteFont>("TimeFont");
             explosionEffect = Content.Load<SoundEffect>("explosion");
+            explodeInstance = explosionEffect.CreateInstance();
             
 
         }
@@ -77,11 +81,21 @@ namespace MonoGame_4_Time_Sound
 
             if (seconds >= 15)
             {
-                explosionEffect.Play();
+                explodeInstance.Play();
                 seconds = 0f;
             }
 
             this.Window.Title = mouseState.Position.ToString();
+
+            if (explodeInstance.State == SoundState.Stopped)
+            {
+                exploded = true;
+            }
+
+            if (exploded == true && explodeInstance.State == SoundState.Stopped)
+            {
+                Exit();
+            }
 
             base.Update(gameTime);
         }
