@@ -94,7 +94,7 @@ namespace MonoGame_4_Time_Sound
 
             this.Window.Title = mouseState.Position.ToString();
 
-            if (explodeInstance.State == SoundState.Stopped)
+            if (seconds >= 15 && explodeInstance.State == SoundState.Stopped)
             {
                 exploded = true;
             }
@@ -110,7 +110,11 @@ namespace MonoGame_4_Time_Sound
             _spriteBatch.Begin();
             _spriteBatch.Draw(bombTexture, bombSize, Color.White);
             _spriteBatch.DrawString(timeFont, seconds.ToString("00.0"), new Vector2(270, 200), Color.Black);
-            _spriteBatch.Draw(cloud, explosionCloud, Color.Transparent);
+            if (exploded == true)
+            {
+              _spriteBatch.Draw(cloud, explosionCloud, Color.Orange);
+            }
+            
             
             _spriteBatch.End();
 
