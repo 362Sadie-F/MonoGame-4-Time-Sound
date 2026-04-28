@@ -18,9 +18,11 @@ namespace MonoGame_4_Time_Sound
         SoundEffect explosionEffect;
         SoundEffectInstance explodeInstance;
         Rectangle redButton;
-        Texture2D button;
         float seconds;
         bool exploded = false;
+        Texture2D cloud;
+        Rectangle explosionCloud;
+
 
         public Game1()
         {
@@ -38,8 +40,9 @@ namespace MonoGame_4_Time_Sound
 
             bombSize = new Rectangle(50, 50, 700, 400);
             redButton = new Rectangle(258, 133, 50, 50);
+            explosionCloud = new Rectangle(0, 0, 700, 495);
             seconds = 0;
-            button = new Texture2D(GraphicsDevice, 50, 50);
+ 
             base.Initialize();
         }
 
@@ -50,6 +53,7 @@ namespace MonoGame_4_Time_Sound
             timeFont = Content.Load<SpriteFont>("TimeFont");
             explosionEffect = Content.Load<SoundEffect>("explosion");
             explodeInstance = explosionEffect.CreateInstance();
+            cloud = Content.Load<Texture2D>("mushroom cloud");
             
 
         }
@@ -82,8 +86,11 @@ namespace MonoGame_4_Time_Sound
             if (seconds >= 15)
             {
                 explodeInstance.Play();
+                
                 seconds = 0f;
             }
+
+
 
             this.Window.Title = mouseState.Position.ToString();
 
@@ -92,22 +99,19 @@ namespace MonoGame_4_Time_Sound
                 exploded = true;
             }
 
-            if (exploded == true && explodeInstance.State == SoundState.Stopped)
-            {
-                Exit();
-            }
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.BlanchedAlmond);
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(bombTexture, bombSize, Color.White);
             _spriteBatch.DrawString(timeFont, seconds.ToString("00.0"), new Vector2(270, 200), Color.Black);
-            _spriteBatch.Draw(button, redButton, Color.Transparent);
+            _spriteBatch.Draw(cloud, explosionCloud, Color.Transparent);
+            
             _spriteBatch.End();
 
             base.Draw(gameTime);
