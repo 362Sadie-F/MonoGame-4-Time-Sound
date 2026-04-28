@@ -110,7 +110,7 @@ namespace MonoGame_4_Time_Sound
             _spriteBatch.Begin();
             _spriteBatch.Draw(bombTexture, bombSize, Color.White);
             _spriteBatch.DrawString(timeFont, seconds.ToString("00.00"), new Vector2(260, 200), Color.Black);
-            if (exploded == true)
+            if (seconds >= 15)
             {
               _spriteBatch.Draw(cloud, explosionCloud, Color.Orange);
             }
