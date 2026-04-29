@@ -23,7 +23,8 @@ namespace MonoGame_4_Time_Sound
         Texture2D cloud;
         Rectangle explosionCloud;
         Texture2D pliers;
-        Vector2 mousePosition;
+        Rectangle pliersRect;
+        
         
 
         public Game1()
@@ -43,6 +44,7 @@ namespace MonoGame_4_Time_Sound
             bombSize = new Rectangle(50, 50, 700, 400);
             redButton = new Rectangle(258, 133, 50, 50);
             explosionCloud = new Rectangle(0, 0, 700, 495);
+            pliersRect = new Rectangle(0, 0, 105, 105);
             seconds = 0;
             
  
@@ -73,11 +75,8 @@ namespace MonoGame_4_Time_Sound
             }
 
             mouseState = Mouse.GetState();
-            Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            //if (mouseState.LeftButton == ButtonState.Pressed)
-            //{
-            //    seconds = 0f;
-            //}
+
+            pliersRect.Location = mouseState.Position;
 
             if (redButton.Contains(mouseState.Position))
             {
@@ -92,7 +91,7 @@ namespace MonoGame_4_Time_Sound
             {
                 explodeInstance.Play();
                 
-                //seconds = 0f;
+                
             }
 
 
@@ -123,9 +122,8 @@ namespace MonoGame_4_Time_Sound
             if (seconds >= 15)
             {
               _spriteBatch.Draw(cloud, explosionCloud, Color.Orange);
-              
             }
-            _spriteBatch.Draw(pliers, mousePosition, Color.White);
+            _spriteBatch.Draw(pliers, pliersRect, Color.White);
            
             _spriteBatch.End();
 
