@@ -22,14 +22,15 @@ namespace MonoGame_4_Time_Sound
         bool exploded = false;
         Texture2D cloud;
         Rectangle explosionCloud;
+        Texture2D pliers;
+        Vector2 mousePosition;
         
-
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -43,6 +44,7 @@ namespace MonoGame_4_Time_Sound
             redButton = new Rectangle(258, 133, 50, 50);
             explosionCloud = new Rectangle(0, 0, 700, 495);
             seconds = 0;
+            
  
             base.Initialize();
         }
@@ -55,6 +57,7 @@ namespace MonoGame_4_Time_Sound
             explosionEffect = Content.Load<SoundEffect>("explosion");
             explodeInstance = explosionEffect.CreateInstance();
             cloud = Content.Load<Texture2D>("mushroom cloud");
+            pliers = Content.Load<Texture2D>("pliers");
             
 
         }
@@ -70,6 +73,7 @@ namespace MonoGame_4_Time_Sound
             }
 
             mouseState = Mouse.GetState();
+            Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
             //if (mouseState.LeftButton == ButtonState.Pressed)
             //{
             //    seconds = 0f;
@@ -121,8 +125,8 @@ namespace MonoGame_4_Time_Sound
               _spriteBatch.Draw(cloud, explosionCloud, Color.Orange);
               
             }
-            
-            
+            _spriteBatch.Draw(pliers, mousePosition, Color.White);
+           
             _spriteBatch.End();
 
             base.Draw(gameTime);
