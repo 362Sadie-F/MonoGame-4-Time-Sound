@@ -22,6 +22,7 @@ namespace MonoGame_4_Time_Sound
         bool exploded = false;
         Texture2D cloud;
         Rectangle explosionCloud;
+        
 
 
         public Game1()
@@ -118,6 +119,7 @@ namespace MonoGame_4_Time_Sound
             if (seconds >= 15)
             {
               _spriteBatch.Draw(cloud, explosionCloud, Color.Orange);
+              
             }
             
             
