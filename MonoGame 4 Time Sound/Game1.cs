@@ -99,6 +99,11 @@ namespace MonoGame_4_Time_Sound
                 exploded = true;
             }
 
+            if (exploded && explodeInstance.State == SoundState.Stopped)
+            {
+                Exit();
+            }
+
 
             base.Update(gameTime);
         }
